@@ -1,0 +1,51 @@
+services:
+  qna_app:
+    build:
+      context: .
+      target: production
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    volumes:
+      - .:/app
+    environment:
+      - DEBUG=true
+    env_file:
+      - .env
+    depends_on:
+      - qna_db
+    networks:
+      - qna_network
+    restart: unless-stopped
+
+  qna_db:
+    image: postgres:16-alpine
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: qna
+      POSTGRES_USER: qna_user
+      POSTGRES_PASSWORD: qna_password
+    ports:
+      - "5432:5432"
+    networks:
+      - qna_network
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - qna_network
+    restart: unless-stopped
+
+volumes:
+  pg_data:
+
+networks:
+  qna_network:
+    driver: bridge
