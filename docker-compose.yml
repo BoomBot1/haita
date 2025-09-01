@@ -20,13 +20,13 @@ services:
     restart: unless-stopped
 
   qna_db:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     volumes:
       - pg_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: qna
       POSTGRES_USER: qna_user
-      POSTGRES_PASSWORD: qna_password
+      POSTGRES_PASSWORD: qna
     ports:
       - "5432:5432"
     networks:

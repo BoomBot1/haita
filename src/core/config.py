@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     DB_HOST: str = 'qna_db'
     DB_PORT: int = 5432
     DB_USER: str = 'qna_user'
-    DB_PASSWORD: str = 'qna_password'
+    DB_PASSWORD: str = 'qna'
     DB_NAME: str = 'qna'
     SQLALCHEMY_ECHO: bool = False
 
